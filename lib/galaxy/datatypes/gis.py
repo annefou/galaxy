@@ -12,6 +12,8 @@ class Shapefile(Binary):
 
     composite_type = 'auto_primary_file'
     file_ext = "shp"
+    edam_format = "format_webprotege_005"
+    edam_data = "data_webprotege_001"
 
     def __init__(self, **kwd):
         super().__init__(**kwd)
@@ -61,3 +63,49 @@ class Shapefile(Binary):
             return dataset.peek
         except Exception:
             return "Shapefile data"
+
+
+class GRIB(Binary):
+    """ The GRIB data format:
+            For more information please see http://en.wikipedia.org/wiki/GRIB
+    GRIB binary image format
+    >>> from galaxy.datatypes.sniff import get_test_fname
+    >>> fname = get_test_fname('test.grb')
+    >>> GRIB().sniff(fname)
+    True
+    >>> fname = get_test_fname('interval.interval')
+    >>> GRIB().sniff(fname)
+    False
+    """
+    file_ext = "grib"
+    edam_format = "format_webprotege_011"
+    edam_data = "data_webprotege_001"
+
+    def __init__(self, **kwd):
+        super().__init__(**kwd)
+        self._magic =  b'GRIB'
+
+    def sniff(self, filename):
+        # The first 4 characters of any GRIB file are GRIB
+        try:
+            header = open(filename, 'rb').read(4)
+            if header == self._magic:
+                return True
+            return False
+        except Exception:
+            return False
+
+    def set_peek(self, dataset, is_multi_byte=False):
+        if not dataset.dataset.purged:
+            dataset.peek = "Binary GRIB file"
+            dataset.blurb = nice_size(dataset.get_size())
+        else:
+            dataset.peek = 'file does not exist'
+            dataset.blurb = 'file purged from disk'
+
+    def display_peek(self, dataset):
+        try:
+            return dataset.peek
+        except Exception:
+            return "Binary GRIB file (%s)" % (nice_size(dataset.get_size()))
+
