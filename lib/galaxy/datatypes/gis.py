@@ -3,6 +3,7 @@ GIS classes
 """
 
 from galaxy.datatypes.binary import Binary
+from galaxy.util import nice_size
 
 
 class Shapefile(Binary):
@@ -83,7 +84,7 @@ class GRIB(Binary):
 
     def __init__(self, **kwd):
         super().__init__(**kwd)
-        self._magic =  b'GRIB'
+        self._magic = b'GRIB'
 
     def sniff(self, filename):
         # The first 4 characters of any GRIB file are GRIB
@@ -108,4 +109,3 @@ class GRIB(Binary):
             return dataset.peek
         except Exception:
             return "Binary GRIB file (%s)" % (nice_size(dataset.get_size()))
-
