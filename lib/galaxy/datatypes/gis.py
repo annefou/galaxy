@@ -70,7 +70,7 @@ class GRIB(Binary):
             For more information please see http://en.wikipedia.org/wiki/GRIB
     GRIB binary image format
     >>> from galaxy.datatypes.sniff import get_test_fname
-    >>> fname = get_test_fname('test.grb')
+    >>> fname = get_test_fname('test.grib')
     >>> GRIB().sniff(fname)
     True
     >>> fname = get_test_fname('interval.interval')
