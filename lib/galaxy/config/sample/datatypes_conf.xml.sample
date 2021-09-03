@@ -933,7 +933,7 @@
     <sniffer type="galaxy.datatypes.binary:Sff"/>
     <sniffer type="galaxy.datatypes.binary:Sra"/>
     <sniffer type="galaxy.datatypes.binary:NetCDF"/>
-    <sniffer type="galaxy.datatypes.binary:GRIB"/>
+    <sniffer type="galaxy.datatypes.gis:GRIB"/>
     <sniffer type="galaxy.datatypes.binary:DAA"/>
     <sniffer type="galaxy.datatypes.binary:RMA6"/>
     <sniffer type="galaxy.datatypes.binary:DMND"/>
